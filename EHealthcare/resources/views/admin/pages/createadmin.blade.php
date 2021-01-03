@@ -14,6 +14,7 @@
       </div>
     </div>
   </div>
+  
   <!-- Page content -->
   <div class="container-fluid mt--6">
     <div class="row">
@@ -53,12 +54,14 @@
                   <div class="col-lg-12">
                     <div class="form-group">
                      
+                   
+                        @foreach($errors->all() as $err)
+                        <div class="alert alert-warning">
+                           {{$err}}
+                        </div>
+                        @endforeach
 
 
-
-<div class="alert alert-warning col-md-12" role="alert">
-
-</div>
           </div>
                   </div>
                   

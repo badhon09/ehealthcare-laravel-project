@@ -25,15 +25,15 @@
             
             <div class="form-group">
               <label class="form-control-label">Title</label>
-              <textarea name="title" rows="4" class="form-control" ></textarea>
+              <textarea name="title" rows="4" class="form-control" required></textarea>
             </div>
             <div class="form-group">
               <label class="form-control-label">Details</label>
-              <textarea name="details" rows="4" class="form-control" placeholder="A few words about you ..."></textarea>
+              <textarea name="details" rows="4" class="form-control" placeholder="A few words about you ..." required></textarea>
             </div>
             <div class="form-group">
               <label class="form-control-label">Add Photo</label>
-              <input name="image"type="file" class="form-control" >
+              <input name="image"type="file" class="form-control" required >
             </div>
           </div>
           <input type="submit" name="submit" class="btn btn-lg btn-neutral mr-auto">

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Http;
 use App\service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Image;
 use File;
+
 
 class ServiceController extends Controller
 {
@@ -94,10 +96,43 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+
+        $client = new \GuzzleHttp\Client();
+    $request = $client->post('http://127.0.0.1:3000/services/delete/'.$id);
+
+    $patient = json_decode($request->body());
+
+   
+    session()->flash('success','  Service Deleted Successfully');
+    return redirect()->route('admin.services');
+    //$response = $request->getBody();
+   
+    //dd($response);
+             //HTTP request from node application
+            // $resp = Http::get('http://127.0.0.1:3000/services/delete/'.$id);
+        
+             //echo $resp->body(['id']);
+            // $patient = json_decode($resp->body()); //parsing the json data
+             //print_r($v->id);
+             //$user = User::where('id', $id)->first();
+             //$patient = Patient::where('user_id', $id)->first();
+             //return view('profile.index')->with('user', $user)->with('patient', $patient);
+     
+            // return view('profile.index')->with('patient', $patient);
+
+           
+     
+
+        /*
+
+        
+
         $service = service::find($id);
         $service->delete();
         session()->flash('success','  Service Deleted Successfully');
         return redirect()->route('admin.services');
+
+        */
     }
 }

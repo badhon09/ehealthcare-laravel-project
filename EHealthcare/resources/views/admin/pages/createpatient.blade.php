@@ -39,7 +39,11 @@
               <div class="col-lg-12">
                   <div class="form-group">
                    
-
+                    @foreach($errors->all() as $err)
+                    <div class="alert alert-warning">
+                       {{$err}}
+                    </div>
+                    @endforeach
 
                   </div>
                 </div>

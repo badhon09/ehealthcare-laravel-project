@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Image;
 use File;
+use Validator;
 
 class DoctorController extends Controller
 {
@@ -39,6 +40,24 @@ class DoctorController extends Controller
      */
     public function store(Request $req)
     {
+
+        $validation = Validator::make($req->all(),[
+            'name'=>'required | min:5',
+            'username'=>'required | min:6',
+            'email'=> 'required |unique:users,email',
+            'password'=>'required|min:6',
+            'contactno'=>'required|numeric|min:6',
+            'dob'=>'required',
+            'fee'=>'required',
+            'qualification'=>'required',
+        ]);
+    
+        if($validation->fails()){
+            return redirect()
+            ->route('admin.createdoctors')->with('errors',$validation->errors());
+        }
+
+
         $user=New User;
         $user->name=$req->fullname;
         $user->username=$req->username;

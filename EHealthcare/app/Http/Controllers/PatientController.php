@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Image;
 use File;
-
+use Validator;
 class PatientController extends Controller
 {
     /**
@@ -39,6 +39,26 @@ class PatientController extends Controller
      */
     public function store(Request $req)
     {
+
+        $validation = Validator::make($req->all(),[
+            'name'=>'required | min:5',
+            'username'=>'required | min:6',
+            'email'=> 'required |unique:users,email',
+            'password'=>'required|min:6',
+            'contactno'=>'required|numeric|min:6',
+            'dob'=>'required',
+            'address'=>'required',
+            'bmi'=>'required',
+            'weight'=>'required',
+            'bp'=>'required',
+            'bg'=>'required',
+            'cal'=>'required',
+        ]);
+    
+        if($validation->fails()){
+            return redirect()
+            ->route('admin.createpatients')->with('errors',$validation->errors());
+        }
         $user=New User;
         $user->name=$req->fullname;
         $user->username=$req->username;
