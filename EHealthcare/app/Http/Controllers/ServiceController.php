@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Image;
 use File;
 
+  
+use GuzzleHttp\Client;
 
 class ServiceController extends Controller
 {
@@ -40,19 +42,33 @@ class ServiceController extends Controller
      */
     public function store(Request $req)
     {
-        $service=New service;
+
+        $client = new Client();
+       // $request = $client->post('http://127.0.0.1:3000/services/delete/'.$id);
+        $resp = $client->post('http://127.0.0.1:3000/services/add',[
+
+            'form_params' => [
+                'name'=>$req->name,
+                'price' =>$req->fee,
+                
+
+            ]
+
+        ]);
+        
+       
+
+     /*   $service=New service;
         $service->name=$req->name;
         $service->price=$req->fee;
-        $service->user_id=Auth::user()->id;
-        $image=$req->file('image');
-        $img=time().'.'.$image->getClientOriginalExtension();
-        $location=public_path('images/'.$img);
-        Image::make($image)->save($location);
-        $service->photo=$img;
 
         $service->save();
+    */
+
+      
         session()->flash('success',' New Service Created Successfully');
         return redirect()->route('admin.services');
+        
     }
 
     /**
@@ -84,9 +100,11 @@ class ServiceController extends Controller
      * @param  \App\service  $service
      * @return \Illuminate\Http\Response
      */
+
+  
     public function update(Request $request, service $service)
     {
-        //
+       
     }
 
     /**
@@ -98,41 +116,22 @@ class ServiceController extends Controller
     public function destroy($id)
     {   
 
-        $client = new \GuzzleHttp\Client();
-    $request = $client->post('http://127.0.0.1:3000/services/delete/'.$id);
+    $client = new Client();
+    $request = $client->post('http://127.0.0.1:3000/services/delete',[
 
-    $patient = json_decode($request->body());
-
-   
-    session()->flash('success','  Service Deleted Successfully');
-    return redirect()->route('admin.services');
-    //$response = $request->getBody();
-   
-    //dd($response);
-             //HTTP request from node application
-            // $resp = Http::get('http://127.0.0.1:3000/services/delete/'.$id);
-        
-             //echo $resp->body(['id']);
-            // $patient = json_decode($resp->body()); //parsing the json data
-             //print_r($v->id);
-             //$user = User::where('id', $id)->first();
-             //$patient = Patient::where('user_id', $id)->first();
-             //return view('profile.index')->with('user', $user)->with('patient', $patient);
-     
-            // return view('profile.index')->with('patient', $patient);
-
+        'form_params' => [
+            'id'=>$id
            
-     
+            
 
-        /*
+        ]
 
-        
+    ]);
 
-        $service = service::find($id);
-        $service->delete();
-        session()->flash('success','  Service Deleted Successfully');
-        return redirect()->route('admin.services');
-
-        */
+    session()->flash('success',' Service Delete Successfully');
+    return redirect()->route('admin.services');
+   
+    
+    
     }
 }

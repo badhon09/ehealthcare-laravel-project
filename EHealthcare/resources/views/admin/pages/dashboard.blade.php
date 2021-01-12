@@ -73,7 +73,7 @@
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Pending Request</h5>
-                    <span class="h2 font-weight-bold mb-0">   000</span>
+                    <span class="h2 font-weight-bold mb-0"> {{count($cr)}}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -96,7 +96,7 @@
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Total Services</h5>
-                    <span class="h2 font-weight-bold mb-0">   000</span>
+                    <span class="h2 font-weight-bold mb-0">  {{count($tservice)}}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">

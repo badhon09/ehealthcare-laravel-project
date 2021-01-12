@@ -6,14 +6,20 @@ use Illuminate\Http\Request;
 use App\User;
 use App\blog;
 use App\service;
+use App\doctor;
+use App\consult;
+use App\payment;
 use Yajra\Datatables\DataTables;
 use DB;
 use Charts;
+use Illuminate\Support\Facades\Auth;
 class AdminPagesController extends Controller
 {
    function dashboard(){
        $tdoctor = User::where('type','doctor');
        $tpatient = User::where('type','patient');
+       $cr = consult::where('status','pending');
+       $tservice = service::get();
        $users = User::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))->where('type','patient')
     				->get();
         $chart = Charts::database($users, 'bar', 'highcharts')
@@ -23,7 +29,7 @@ class AdminPagesController extends Controller
                   ->colors(['#C5CAE9', '#283593'])
 			      ->responsive(false)
 			      ->groupByMonth(date('Y'), true);
-       return view('admin.pages.dashboard',compact('tdoctor','tpatient','chart'));
+       return view('admin.pages.dashboard',compact('tdoctor','tpatient','chart','tservice','cr'));
     }
    function patients(){
         $patients = User::orderBy('id','desc')->where('type','patient')->get();
@@ -68,9 +74,25 @@ function createservices(){
    return view('admin.pages.createblog'); 
     }
     function consultingrequests(){
-        return view('admin.pages.consultingrequests');
+        $a = consult::where('status','pending')->get();
+        return view('admin.pages.consultingrequest',compact('a'));
    }
  
+   function consultingrequestsaccept($id){
+    $a=consult::find($id);
+    $a->status = 'accepted';
+    $a->save();
+    session()->flash('success',' Request accepted');
+    return redirect()->route('admin.consultingrequests');
+}
+
+function consultingrequestsreject($id){
+    $a=consult::find($id);
+    $a->status = 'rejected';
+    $a->save();
+    session()->flash('success',' Request rejected');
+    return redirect()->route('admin.consultingrequests');
+}
 
     function profile(){
         
@@ -84,6 +106,90 @@ function createservices(){
     }
   
 
+    public function update(Request $req,$id){
+
+      
+    
+        $user=User::find($id);
+        $user->name=$req->fullname;
+       
+        $user->email=$req->email;
+       
+        $user->contactno=$req->contactno;
+        $user->save();
+    
+        session()->flash('success','  Admin Updated');
+        return redirect()->route('admin.admins');
+    
+    
+    
+       }
+
+       public function updatedoc(Request $req, $id){
+
+        $user= User::find($id);
+        $user->name=$req->fullname;
+        $user->username=$req->username;
+        $user->email=$req->email;
+       
+        $user->type='doctor';
+        $user->contactno=$req->contactno;
+       
+       
+        $user->save();
+
+
+
+        
+        
+        $doctor =  doctor::find($id);
+        $doctor->dob = $req->dob;
+        $doctor->qualification = $req->qualification;
+        
+        $doctor->fee = $req->fee;
+        
+        $doctor->save();
+
+        
+
+        session()->flash('success','  Doctor Updated');
+        return redirect()->route('admin.doctors');
+        
+    }
+
+    function payment(){
+        $p=payment::get();
+        return view('admin.pages.payment',compact('p'));
+    }
+
+    function paymentprint($id){
+        $p=payment::where('id',$id)->get();
+        return view('admin.pages.printpayment',compact('p'));
+    }
+
+    function profileupdate(Request $req){
+        $user=User::find(Auth::user()->id);
+        $user->name=$req->fullname;
+        $user->username=$req->username;
+       
+        $user->email=$req->email;
+       
+        $user->contactno=$req->contactno;
+        $user->save();
+    
+        session()->flash('success','  profile Updated');
+        return redirect()->route('admin.profile');
+    }
+
+
+    function searchdoc(Request $req){
+
+       $doc = User::where('name' , 'like' , '%'.$req->search.'%')
+       ->get();
+       return response()->json($doc);
+
+    }
+      
  
 
 

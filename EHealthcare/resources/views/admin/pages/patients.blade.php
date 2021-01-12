@@ -64,11 +64,11 @@
                   {{$p->contactno}}
                 </td>
                 <td>
-                  <a href="/admin/patients/edit/" class="btn btn-sm btn-primary">edit</a>
+                  <a href="{{route('admin.editpatient',$p->id)}}" class="btn btn-sm btn-primary">edit</a>
                  
 
             
-                  <a href="/admin/patients/delete/" class="btn btn-sm btn-danger">delete</a>
+                  <a href="{{route('admin.deletepatient',$p->id)}}" class="btn btn-sm btn-danger">delete</a>
                
                 </td>
               </tr>

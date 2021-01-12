@@ -34,8 +34,7 @@
                 <tr>
                   <th scope="col">Service name</th>
                   <th scope="col">Price</th>
-                  <th scope="col">created at</th>
-                  <th scope="col">created by</th>
+                 
                   <th scope="col">Action</th>
                   
                 </tr>
@@ -52,12 +51,8 @@
                   <td>
                    {{$s->price}}
                   </td>
-                  <td>
-                    {{$s->created_at}}
-                  </td>
-                  <td>
-                    
-                  </td>
+                
+                 
                   <td>
                     <a href="#!" class="btn btn-sm btn-primary">edit</a>
                     <a href="{{route('admin.deleteservice',$s->id)}}" class="btn btn-sm btn-danger">delete</a>

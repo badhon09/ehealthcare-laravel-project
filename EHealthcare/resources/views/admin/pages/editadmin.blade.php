@@ -8,7 +8,7 @@
     <div class="container-fluid d-flex align-items-center">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="display-2 text-white">Edit Admin</h1>
+          <h1 class="display-2 text-white">Edit Admins</h1>
          
         </div>
       </div>
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
+            <form method="POST" action="{{route('admin.updateadmin',$admin[0]->id)}}" enctype="multipart/form-data" >
             	@csrf
               <h6 class="heading-small text-muted mb-4">User information</h6>
               <div class="pl-lg-4">
@@ -65,16 +65,10 @@
           </div>
                   </div>
                   
-                  <div class="col-lg-6">
+                  <div class="col-lg-12">
                     <div class="form-group">
                       <label class="form-control-label" for="input-email">Email address</label>
-                      <input type="email" name="email" placeholder="badhon@mail.com"  class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label class="form-control-label" for="input-email">UserName</label>
-                      <input type="text" name="username" placeholder="username"  class="form-control">
+                      <input type="email" name="email" value="{{$admin[0]->email}}"  class="form-control">
                     </div>
                   </div>
                 </div>
@@ -82,34 +76,30 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label class="form-control-label" for="input-first-name">Full name</label>
-                      <input type="text" name="fullname"  class="form-control" placeholder="Full name" >
+                      <input type="text" name="fullname"  class="form-control" value="{{$admin[0]->name}}" >
                     </div>
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label class="form-control-label" for="input-last-name">Password</label>
-                      <input type="text" name="password"  class="form-control" placeholder="Password" >
+                      <input type="text" name="password"  class="form-control" value="{{$admin[0]->password}}" >
                     </div>
                   </div>
                  
-                  <div class="col-lg-12">
-                    <div class="form-group">
-                      <label class="form-control-label" for="input-last-name">Upload Picture</label>
-                      <input type="file" name="image"   class="form-control" >
-                    </div>
-                  </div>
+                
                   
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label class="form-control-label" for="input-last-name">Contact</label>
-                      <input type="text" name="contactno"  class="form-control" placeholder="Phone Number" >
+                      <input type="text" name="contactno"  class="form-control" value="{{$admin[0]->contactno}}" >
+                      <input type="hidden" name="id"  class="form-control" value="{{$admin[0]->id}}" >
                     </div>
                   </div>
                   
                 </div>
               </div>
              
-              <input type="submit" placeholder="add" name="submit" class="btn btn-lg btn-success offset-11">
+              <input type="submit"  class="btn btn-lg btn-success offset-11">
             </form>
           </div>
         </div>

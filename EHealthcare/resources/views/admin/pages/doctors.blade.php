@@ -24,6 +24,19 @@
             <div class="col">
               <h3 class="mb-0">Doctors List</h3>
             </div>
+
+            <form method="POST" action="">
+              <input type="text" class="form-control" id="search" placeholder="Search" type="text">
+              <button id="ajaxSearch" type="submit" class="btn  btn-success mt-2 btn-sm btn-style-one">Search</button>
+          
+            </div>
+          </div>
+          
+           
+      </form>
+
+
+
             <div class="col text-right">
             <a href="{{route('admin.createdoctors')}}" class="btn btn-sm btn-primary">Add Doctors</a>
             </div>
@@ -31,7 +44,7 @@
         </div>
         <div class="table-responsive">
           <!-- Projects table -->
-          <table id="myTable" class="table align-items-center table-flush">
+          <table id="myTablex" class="dont-show table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
                 <th scope="col">name</th>
@@ -64,11 +77,11 @@
                {{$d->contactno}}
                 </td>
                 <td>
-                  <a href="/admin/patients/edit/" class="btn btn-sm btn-primary">edit</a>
+                  <a href="{{route('admin.editdoctor',$d->id)}}" class="btn btn-sm btn-primary">edit</a>
                  
 
             
-                  <a href="/admin/patients/delete/" class="btn btn-sm btn-danger">delete</a>
+                  <a href="{{route('admin.deletedoctor',$d->id)}}" class="btn btn-sm btn-danger">delete</a>
                
                 </td>
               </tr>
@@ -76,6 +89,47 @@
           
             </tbody>
           </table>
+
+          <div class="show" style="display: none;"> 
+            <table  class="table  align-items-center table-flush" >
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Doctor name</th>
+                  <th scope="col">email</th>
+                  <th scope="col">username</th>
+                  <th scope="col">photo</th>
+                  <th scope="col">contact no</th>
+                  <th scope="col">action</th>
+                </tr>
+              </thead>
+            
+              <tbody>
+                <tr>
+                  <th scope="row">
+                 <span id="fullname"></span>
+                  </th>
+                  <td>
+                    <span id="email"></span>
+                  </td>
+                  <td>
+                    <span id="username"></span>
+                  </td>
+                  <td>
+                    <span id="fullname"></span>
+                  </td>
+                  <td>
+                    <span id="contactno"></span>
+                  </td>
+                  <td>
+                    <a href="#!" class="btn btn-sm btn-primary">edit</a>
+                    <a href="/admin/doctors/delete/" class="btn btn-sm btn-danger">delete</a>
+                 
+                  </td>
+                </tr>
+             
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -117,6 +171,39 @@
       </div>
     </div>
   </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#ajaxSearch").click((e) => {
+            e.preventDefault();
+            var search = $("#search").val();
+            //$(this).closest('myTable').remove();
+            console.log(search);
+            $.ajax({
+                url: "/admin/doctors/search_doctor",
+                data: { search: search },
+               dataType: 'json',
+                success: function(doc){
+                    var results = doc;
+                    console.log("$ -> results", results[0].name)
+                    document.querySelector('.dont-show').style.display = "none";
+                    //document.querySelector('.product__item').style.display = "flex";
+                    document.querySelector('.show').style.display = "flex";
+                    $("#fullname").html(results[0].name);
+                    $("#email").html(results[0].email);
+                    $("#username").html(results[0].username);
+                    $("#contactno").html(results[0].contactno);
+                   // $("#image").html(results[0].image);
+                }, error: function(err) {
+                    alert(err);
+                }
+            });
+            
+            
+        });
+    });
+</script>
 
  
 @endsection

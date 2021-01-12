@@ -69,6 +69,31 @@ class LoginController extends Controller
         
     }
 
+    public function facebook(){
+        return Socialite::driver('facebook')->redirect();
+}
+
+public function facebookRedirect(){
+
+    $user = Socialite::driver('facebook')->user();
+
+   
+
+    $user= User::firstOrCreate([
+        'email'=> $user->email
+    ],[
+        'name' => $user->name,
+        'password' => Hash::make(Str::random(24)),
+        'type' => 'admin',
+        'username'=>'',
+        'photo'=>'',
+        'contactno'=>''
+    ]);
+
+    Auth::login($user,true);
+    return redirect('/admin'); 
+    
+}
 
     public function redirectTo(){
 

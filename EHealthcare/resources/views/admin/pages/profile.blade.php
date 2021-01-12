@@ -68,12 +68,19 @@
           </div>
         </div>
         <div class="card-body">
-          <form method="post" enctype="multipart">
+          <form method="post" enctype="multipart" >
+            @csrf
             <h6 class="heading-small text-muted mb-4">User information</h6>
             <div class="pl-lg-4">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
+                    @if (session('success'))
+  
+                    <div class="alert alert-success">
+                        {{session('success')}}
+                    </div>
+                    @endif
                    
 
 </div>
@@ -82,6 +89,7 @@
                   <div class="form-group">
                     <label class="form-control-label" for="input-username">Username</label>
                     <input type="text" name="username" value="{{Auth::user()->username}}" class="form-control" placeholder="Username" >
+                    <input type="hidden" name="id" value="{{Auth::user()->id}}" class="form-control" placeholder="Username" >
                   </div>
                 </div>
                 <div class="col-lg-6">

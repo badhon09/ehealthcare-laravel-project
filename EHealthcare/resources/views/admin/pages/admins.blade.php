@@ -44,12 +44,14 @@
                 </tr>
               </thead>
               @foreach ($admins as $admin)
+              <tr>
                   <td>{{$admin->name}}</td>
                   <td>{{$admin->email}}</td>
                   <td><img src="{{asset('images/'.$admin->photo)}}" alt="" width="90"></td>
                   <td>{{$admin->contactno}}</td>
-                  <td><a href="" class="btn btn-sm btn-success">edit</a>
-                    <a href="" class="btn btn-sm btn-success">delete</a></td>
+                  <td><a href="{{route('admin.editadmin',$admin->id)}}" class="btn btn-sm btn-success">edit</a>
+                    <a href="{{route('admin.deleteadmin',$admin->id)}}" class="btn btn-sm btn-success">delete</a></td>
+                  </tr>
               @endforeach
      
               <tbody>

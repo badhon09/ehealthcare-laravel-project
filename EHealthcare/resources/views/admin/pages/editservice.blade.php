@@ -35,7 +35,10 @@
                 <label class="form-control-label" for="input-last-name">Fee</label>
                 <input type="text" name="fee"  class="form-control" placeholder="Fee" >
               </div>
-            
+              <div class="form-group">
+                <label class="form-control-label">Add Photo</label>
+                <input name="image"type="file" class="form-control" >
+              </div>
           </div>
           <input type="submit" name="submit" class="btn btn-lg btn-neutral mr-auto">
         </form>

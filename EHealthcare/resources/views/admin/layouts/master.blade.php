@@ -89,7 +89,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="{{route('admin.consultingrequests')}}">
+                <i class="ni ni-key-25 text-info"></i>
+                <span class="nav-link-text">Consulting Requests</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('admin.payment')}}">
                 <i class="ni ni-key-25 text-info"></i>
                 <span class="nav-link-text">Manage Payments</span>
               </a>
@@ -269,22 +275,11 @@
                 <div class="dropdown-header noti-title">
                   <h6 class="text-overflow m-0">Welcome!</h6>
                 </div>
-                <a href="#!" class="dropdown-item">
+                <a href="{{route('admin.profile')}}" class="dropdown-item">
                   <i class="ni ni-single-02"></i>
                   <span>My profile</span>
                 </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-settings-gear-65"></i>
-                  <span>Settings</span>
-                </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-calendar-grid-58"></i>
-                  <span>Activity</span>
-                </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-support-16"></i>
-                  <span>Support</span>
-                </a>
+                
                 <div class="dropdown-divider"></div>
                 
                  <b> <a class="dropdown-item" href="{{ route('logout') }}"

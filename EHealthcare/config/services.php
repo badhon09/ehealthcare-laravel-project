@@ -38,5 +38,16 @@ return [
         'client_secret'=> env('GITHUB_CLIENT_SECRET'),
         'redirect' => env('GITHUB_REDIRECT_URL'),
     ],
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URL'),
+    ],
+
+    'facebook' => [
+        'client_id' => '349787416159691',
+        'client_secret' => 'c1a135d96ca061d1bda280c911422648',
+        'redirect' => 'http://localhost:8000/login/facebook/callback'
+    ],
 
 ];

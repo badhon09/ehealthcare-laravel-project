@@ -41,7 +41,7 @@ class PatientController extends Controller
     {
 
         $validation = Validator::make($req->all(),[
-            'name'=>'required | min:5',
+            'fullname'=>'required | min:5',
             'username'=>'required | min:6',
             'email'=> 'required |unique:users,email',
             'password'=>'required|min:6',
@@ -107,9 +107,11 @@ class PatientController extends Controller
      * @param  \App\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(patient $patient)
+    public function edit($id)
     {
-        //
+        $p =  User::join('patients','users.id','=','patients.user_id')->where('users.id',$id)->get();
+        return view('admin.pages.editpatient',compact('p'));
+        
     }
 
     /**
@@ -130,8 +132,11 @@ class PatientController extends Controller
      * @param  \App\patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(patient $patient)
+    public function destroy($id)
     {
-        //
+        $p = User::find($id);
+        $p->delete();
+        session()->flash('success','  Patient Deleted');
+        return redirect()->route('admin.patients');
     }
 }

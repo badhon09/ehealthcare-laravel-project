@@ -1,28 +1,25 @@
 @extends('admin.layouts.master')
+
 @section('css')
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 @endsection
+
 @section('content')
+
 <div class="container-fluid mt-6">
-  @if (session('success'))
-  
-  <div class="alert alert-success">
-      {{session('success')}}
-  </div>
-  @endif
     <div class="row">
       <div class="col-xl-12">
         <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
               <div class="col">
-                <h3 class="mb-0">Blog List</h3>
-                <h1></h1>
+                <h3 class="mb-0">Payment List</h3>
+                
               </div>
               <div class="col text-right">
-              <a href="{{route('admin.createblogs')}}" class="btn btn-sm btn-primary">Add Post</a>
+                <a href="#!" class="btn btn-sm btn-primary">See all</a>
               </div>
             </div>
           </div>
@@ -31,39 +28,39 @@
             <table id="myTable" class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">Post name</th>
-                  <th scope="col">time</th>
-                  <th scope="col">posted by</th>
-                  <th scope="col">view</th>
-                  <th scope="col">Action</th>
-                  
+                  <th scope="col">Doctor name</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Payment Gateway</th>
+                  <th scope="col">payment date</th>
+                  <th scope="col">payment status</th>
+                  <th scope="col">action</th>
                 </tr>
               </thead>
-             
+            
               <tbody>
-                @foreach ($blog as $b)
-                    
+                  @foreach ($p as $p)
+                      
                 
                 <tr>
                   <th scope="row">
-                    {{$b->title}}
-                    
+                  {{$p->doctorname}}
                   </th>
                   <td>
-                    {{$b->created_at}}
+                    {{$p->amount}}
                   </td>
                   <td>
-                    {{$b->name}}
+                    {{$p->gateway}}
                   </td>
                   <td>
-               
+                    {{$p->date}}
                   </td>
                   <td>
-                    <a href="#!" class="btn btn-sm btn-primary">edit</a>
-                    <a href="{{route('admin.deleteblog',$b->bid)}}" class="btn btn-sm btn-danger">delete</a>
-                 
-                    </td>
-                   
+                    {{$p->status}}
+                  </td>
+                  <td>
+                    <a href="{{route('admin.paymentprint',$p->id)}}" class="btn btn-sm btn-primary">Print Invoice</a>
+                    
+                  </td>
                 </tr>
                 @endforeach
             
@@ -72,30 +69,9 @@
           </div>
         </div>
       </div>
-          <!-- Card footer -->
-         
-        </div>
-      </div>
     </div>
-    <!-- Dark table -->
-    <div class="row">
-      <div class="col">
-        <div class="card bg-default shadow">
-          
-          
-        </div>
-      </div>
-    </div>
-
-    <script>
-      $(document).on('click','.delete',function(){
-        userid = $().val();
-      })
-    </script>
-
-
-
-
+</div>
+    
 @endsection
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

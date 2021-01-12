@@ -42,7 +42,7 @@ class DoctorController extends Controller
     {
 
         $validation = Validator::make($req->all(),[
-            'name'=>'required | min:5',
+            'fullname'=>'required | min:5',
             'username'=>'required | min:6',
             'email'=> 'required |unique:users,email',
             'password'=>'required|min:6',
@@ -107,10 +107,14 @@ class DoctorController extends Controller
      * @param  \App\doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit(doctor $doctor)
+    public function edit($id)
     {
-        //
+        $doctor = User::join('doctors','users.id','=','doctors.user_id')->where('users.id',$id)->get();
+        return view('admin.pages.editdoctor',compact('doctor'));
+        
     }
+
+    
 
     /**
      * Update the specified resource in storage.
@@ -119,10 +123,7 @@ class DoctorController extends Controller
      * @param  \App\doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, doctor $doctor)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.

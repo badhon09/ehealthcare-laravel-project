@@ -92,7 +92,7 @@
               <p align="center">Login with</p>
               <div class="ml-5 justify-items-center">
                 <a href="/sign-in/github" class="btn btn-md btn-primary">Github</a>
-                <a href="" class="btn btn-md btn-primary">Google</a>
+                <a href="/sign-in/facebook" class="btn btn-md btn-primary">Facebook</a>
 
               </div>
              <br><br>

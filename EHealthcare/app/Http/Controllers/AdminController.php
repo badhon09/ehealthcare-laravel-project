@@ -15,7 +15,7 @@ class AdminController extends Controller
    function createadmin(Request $req){
 
     $validation = Validator::make($req->all(),[
-        'name'=>'required | min:5',
+        'fullname'=>'required | min:5',
         'username'=>'required | min:6',
         'email'=> 'required |unique:users,email',
         'password'=>'required|min:6',
@@ -51,4 +51,12 @@ class AdminController extends Controller
    {
        return Datatables::of(User::query())->make(true);
    }
+
+   public function editadmin($id)
+   {
+       $admin = User::where('id',$id)->get();
+       return view('admin.pages.editadmin',compact('admin'));
+   }
+
+  
 }
